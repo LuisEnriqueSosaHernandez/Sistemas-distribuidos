@@ -1,0 +1,19 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package login;
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+/**
+ *
+ * @author k_ike
+ */
+public interface LoginInterfaz extends Remote{
+    
+    public boolean validateForm(String numControl,String password) throws RemoteException;
+    
+}
