@@ -9,41 +9,29 @@ import ChatServidor.ServidorInterface;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
+import javax.swing.JTextArea;
 
 /**
  *
  * @author k_ike
  */
-public class ClienteImplementacion extends UnicastRemoteObject implements ClienteInterface, Runnable {
+public class ClienteImplementacion extends UnicastRemoteObject implements ClienteInterface {
 
     private ServidorInterface servidorInterface;
     private String name;
     Scanner scanner;
     String mensaje;
+    JTextArea textAreaChat;
 
-    public ClienteImplementacion(String nombre, ServidorInterface servidorInterface) throws RemoteException {
+    public ClienteImplementacion(String nombre, ServidorInterface servidorInterface,JTextArea textAreaChat) throws RemoteException {
         this.name = nombre;
         this.servidorInterface = servidorInterface;
+        this.textAreaChat=textAreaChat;
         servidorInterface.registrarCliente(this, name);
     }
 
     @Override
     public void recibirMensaje(String mensaje) throws RemoteException {
-        System.out.println(mensaje);
-    }
-
-    @Override
-    public void run() {
-        scanner = new Scanner(System.in);
-
-        while (true) {
-            mensaje = scanner.nextLine().trim();
-            try {
-                servidorInterface.trasmitirMensaje(name + ": " + mensaje);
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-
-        }
+        textAreaChat.append(mensaje+"\n");
     }
 }
