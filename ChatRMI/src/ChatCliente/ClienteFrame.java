@@ -6,13 +6,10 @@
 package ChatCliente;
 
 import ChatServidor.ServidorInterface;
-import java.awt.TextArea;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 /**
@@ -36,11 +33,29 @@ public class ClienteFrame extends javax.swing.JFrame {
                 System.exit(0);
             }
             initComponents();
-            ClienteImplementacion clienteImplementacion=new ClienteImplementacion(nombre, servidorInterface,textAreaChat);
+            ClienteImplementacion clienteImplementacion=new ClienteImplementacion(textAreaChat);
+             servidorInterface.registrarCliente(clienteImplementacion, nombre);
         } catch (Exception e) {
             e.printStackTrace();
         }
-         setLocationRelativeTo(null);
+         this.setLocationRelativeTo(null);
+         this.setTitle("Usuario: "+nombre);
+         buttonEnviar.setEnabled(false);
+         textAreaEscritura.requestFocus();
+        textAreaEscritura.addKeyListener(new KeyAdapter() {
+
+             @Override
+             public void keyReleased(KeyEvent e) {
+                  if(textAreaEscritura.getText().equals("")){
+                     buttonEnviar.setEnabled(false);
+                 }else{
+                     buttonEnviar.setEnabled(true);
+                 }
+                 super.keyReleased(e); //To change body of generated methods, choose Tools | Templates.
+             }
+             
+             
+});
     }
 
     /**
@@ -142,6 +157,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             if(!mensaje.equals("")){
              servidorInterface.trasmitirMensaje(nombre + ": " + mensaje);
              textAreaEscritura.setText("");
+             buttonEnviar.setEnabled(false);
             }
         } catch (Exception e) {
             e.printStackTrace();

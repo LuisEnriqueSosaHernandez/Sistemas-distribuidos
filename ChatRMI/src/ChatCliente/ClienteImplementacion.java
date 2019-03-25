@@ -5,7 +5,6 @@
  */
 package ChatCliente;
 
-import ChatServidor.ServidorInterface;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
@@ -16,18 +15,15 @@ import javax.swing.JTextArea;
  * @author k_ike
  */
 public class ClienteImplementacion extends UnicastRemoteObject implements ClienteInterface {
-
-    private ServidorInterface servidorInterface;
-    private String name;
+    
     Scanner scanner;
     String mensaje;
     JTextArea textAreaChat;
 
-    public ClienteImplementacion(String nombre, ServidorInterface servidorInterface,JTextArea textAreaChat) throws RemoteException {
-        this.name = nombre;
-        this.servidorInterface = servidorInterface;
+    public ClienteImplementacion(JTextArea textAreaChat) throws RemoteException {
+        
         this.textAreaChat=textAreaChat;
-        servidorInterface.registrarCliente(this, name);
+        
     }
 
     @Override
