@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+        *** GENERATED FROM jax-ws.xml - DO NOT EDIT !                             ***
+        *** TO MODIFY wsimport options USE Web Service node -> Edit WS Attributes ***
+        *** TO CHANGE TARGETS GENERATED TO jaxws-build.xml COPY THOSE             ***
+        *** TARGETS TO ../build.xml AND MODIFY THAT FILE INSTEAD                  ***
+
+        --><project xmlns:xalan="http://xml.apache.org/xslt" xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${libs.jaxws21.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-client-pub_gral" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/pub_gral"/>
+        <property name="wsdl-pub_gral" location="xml-resources/web-service-references/pub_gral/wsdl/cvnet.cpd.ua.es/servicioweb/publicos/pub_gral.asmx.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/pub_gral" destdir="${build.generated.dir}/jax-wsCache/pub_gral" wsdl="${wsdl-pub_gral}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="https://cvnet.cpd.ua.es/servicioweb/publicos/pub_gral.asmx?WSDL" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-pub_gral}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/pub_gral"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/pub_gral">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-pub_gral" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/pub_gral"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/uasi/ws_gral/wsdl"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-pub_gral"/>
+</project>
