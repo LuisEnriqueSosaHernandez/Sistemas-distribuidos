@@ -135,7 +135,11 @@ public class AlumnosCliente extends javax.swing.JFrame {
                     alumno.setNombre(txtNombre.getText());
                     alumno.setCarrera(txtCarrera.getText());
                     cliente.create_XML(alumno);
-                    System.out.println(cliente.find_XML(String.class, txtNumeroControl.getText()));
+                    //System.out.println(cliente.find_XML(alumnos.Alumnos.class, txtNumeroControl.getText()));
+                    alumnos.Alumnos alumnoSalida=cliente.find_XML(alumnos.Alumnos.class, txtNumeroControl.getText());
+                    System.out.println(alumnoSalida.getNumcontrol());
+                    System.out.println(alumnoSalida.getNombre());
+                    System.out.println(alumnoSalida.getCarrera());
                     cliente.close();
                 } else {
                     JOptionPane.showMessageDialog(this, "Falta la carrera", "Error", JOptionPane.ERROR_MESSAGE);
