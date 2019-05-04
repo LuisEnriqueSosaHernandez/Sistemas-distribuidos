@@ -7,6 +7,9 @@ module AdditionApp
   interface Addition
   {
     long add(in long a,in long b);
+    long minus(in long a,in long b);
+    long multiplyBy(in long a,in long b);
+    double dividedBy(in double a,in double b);
     oneway void shutdown();
     };
 };

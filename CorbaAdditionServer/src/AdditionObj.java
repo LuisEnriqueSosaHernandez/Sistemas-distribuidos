@@ -33,4 +33,22 @@ class AdditionObj extends AdditionPOA {
   public void shutdown() {
     orb.shutdown(false);
   }
+
+    @Override
+    public int minus(int a, int b) {
+       int r=a-b;
+       return r;
+    }
+
+    @Override
+    public int multiplyBy(int a, int b) {
+      int r=a*b;
+      return r;
+    }
+
+    @Override
+    public double dividedBy(double a, double b) {
+        double r=a/b;
+        return r;
+    }
 }
