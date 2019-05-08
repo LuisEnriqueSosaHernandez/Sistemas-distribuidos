@@ -1,0 +1,6 @@
+module FibonacciApp{
+interface Fibonacci{
+void  Fibonacci(inout long x);
+oneway void shutdown();
+};
+};
