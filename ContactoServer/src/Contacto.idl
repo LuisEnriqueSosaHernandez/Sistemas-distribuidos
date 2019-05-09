@@ -1,0 +1,16 @@
+module ContactoApp
+{
+struct Contacto{
+string usuario;
+string correo;
+string tipo;
+};
+
+
+
+  interface IContato
+  {
+    void validar (in string user, in string pwd, out Contacto contacto);
+    oneway void shutdown();
+    };
+};
