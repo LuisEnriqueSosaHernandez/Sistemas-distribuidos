@@ -28,7 +28,7 @@ public void setORB(ORB orb_val) {
     public DateTime get_date_time() {
         calendario=new GregorianCalendar();
         time=new Time(calendario.get(Calendar.HOUR_OF_DAY),calendario.get(Calendar.MINUTE),calendario.get(Calendar.SECOND));
-     return dateTime=new DateTime(calendario.get(Calendar.DAY_OF_MONTH),calendario.get(Calendar.MONTH),calendario.get(Calendar.YEAR),time);
+     return dateTime=new DateTime(calendario.get(Calendar.DAY_OF_MONTH),calendario.get(Calendar.MONTH)+1,calendario.get(Calendar.YEAR),time);
     }
 
     @Override

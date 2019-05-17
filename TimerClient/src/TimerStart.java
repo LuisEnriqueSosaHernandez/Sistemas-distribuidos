@@ -50,7 +50,7 @@ public class TimerStart {
                     case 2:
                         dateTime=dateTimeServer.get_date_time();
                         time=dateTime.hms;
-                          System.out.println("La fecha es: "+dateTime.day+"-"+dateTime.month+"-"+dateTime.day
+                          System.out.println("La fecha es: "+dateTime.day+"-"+dateTime.month+"-"+dateTime.year
                                   + " Y la  hora es: "+time.hours+":"+time.minutes+":"+time.seconds);
                         break;
                     default:
