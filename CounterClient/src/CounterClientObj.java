@@ -1,5 +1,6 @@
 
 import CBCount.CounterClientPOA;
+import javax.swing.JLabel;
 import org.omg.CORBA.ORB;
 
 /*
@@ -14,12 +15,18 @@ import org.omg.CORBA.ORB;
  */
 public class CounterClientObj extends CounterClientPOA{
 private ORB orb;
+private JLabel lblCounter;
 public void setORB(ORB orb_val) {
     orb = orb_val; 
   }
+public CounterClientObj(JLabel lblCounter){
+    this.lblCounter=lblCounter;
+}
+
     @Override
     public void update(int value) {
-        System.out.println("Alguien ha cambiado el valor a: "+value);
+       lblCounter.setText(""+value);
     }
     
+   
 }
