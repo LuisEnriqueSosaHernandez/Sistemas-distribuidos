@@ -117,18 +117,18 @@ public class DriveApp {
                     System.out.println("File ID: " + file.getId());
                     break;
                 case 2:
-                    String fileId = "1G1gt0IlHN4pPuRtDT-S0k5snbvVOu-tS";
+                    String fileId = "13VoppTchBgzSp5UXn4e4F1i4ZOuFpii5";
                     File fileImg = service.files().get(fileId).execute();
                     System.out.println(fileImg.getName());
 //Aun no lo entiendos como guardar el archivo
                     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                     service.files().get(fileId)
                             .executeMediaAndDownloadTo(outputStream);
-                   FileOutputStream file2=new FileOutputStream("photo.jpg");
+                   FileOutputStream file2=new FileOutputStream("filesDownload/photo.jpg");
                    outputStream.writeTo(file2);
                     break;
                 default:
-                    System.out.println("Opción incorrecta");
+                    System.out.println("OpciÃ³n incorrecta");
                     break;
             }
         } while (opcion != 3);
