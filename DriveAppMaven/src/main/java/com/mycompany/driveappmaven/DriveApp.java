@@ -30,6 +30,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -116,14 +117,15 @@ public class DriveApp {
                     System.out.println("File ID: " + file.getId());
                     break;
                 case 2:
-                    String fileId = "1XZA4pr382uabqmomeR-pI20jtv63R5tx";
+                    String fileId = "1G1gt0IlHN4pPuRtDT-S0k5snbvVOu-tS";
                     File fileImg = service.files().get(fileId).execute();
                     System.out.println(fileImg.getName());
 //Aun no lo entiendos como guardar el archivo
-                    OutputStream outputStream = new ByteArrayOutputStream();
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                     service.files().get(fileId)
                             .executeMediaAndDownloadTo(outputStream);
-
+                   FileOutputStream file2=new FileOutputStream("photo.jpg");
+                   outputStream.writeTo(file2);
                     break;
                 default:
                     System.out.println("Opción incorrecta");
