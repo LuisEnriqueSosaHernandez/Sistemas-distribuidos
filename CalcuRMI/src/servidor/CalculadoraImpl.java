@@ -42,5 +42,19 @@ public class CalculadoraImpl extends UnicastRemoteObject implements CalculadoraI
     public Double pot(Double x, Double y) throws RemoteException {
        return Math.pow(x, y);
     }
+
+    @Override
+    public Double raiz(Double x) throws RemoteException {
+        return Math.sqrt(x);
+    }
+
+    @Override
+    public Double factorial(Double x) throws RemoteException {
+        double factorial=1;
+       for(int i=1;i<=x;i++){
+           factorial*=i;
+       }
+       return factorial;
+    }
     
 }

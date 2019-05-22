@@ -67,6 +67,8 @@ public class ClienteCalculadoraFrame extends javax.swing.JFrame {
         btnPunto = new javax.swing.JButton();
         btnIgual = new javax.swing.JButton();
         btn0 = new javax.swing.JButton();
+        btnRaiz = new javax.swing.JButton();
+        btnFactorial = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -196,6 +198,20 @@ public class ClienteCalculadoraFrame extends javax.swing.JFrame {
             }
         });
 
+        btnRaiz.setText("√ ");
+        btnRaiz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRaizActionPerformed(evt);
+            }
+        });
+
+        btnFactorial.setText("!");
+        btnFactorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFactorialActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -240,11 +256,16 @@ public class ClienteCalculadoraFrame extends javax.swing.JFrame {
                             .addComponent(btn0, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnIgual, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnIgual, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnPot, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnPunto, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnPot, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnPunto, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnRaiz, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnFactorial, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -279,9 +300,13 @@ public class ClienteCalculadoraFrame extends javax.swing.JFrame {
                     .addComponent(btnPunto, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRaiz, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFactorial, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnIgual, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn0, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -477,6 +502,20 @@ public class ClienteCalculadoraFrame extends javax.swing.JFrame {
                     e.printStackTrace();
                 }
                 break;
+                case "raiz":
+                try{
+                    textResultado.setText(Double.toString(calculadoraInterfaz.raiz(Double.parseDouble(x))));
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                break;
+                    case "factorial":
+                try{
+                    textResultado.setText(Double.toString(calculadoraInterfaz.factorial(Double.parseDouble(x))));
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                break;
         }
          bandera = true;
         x = "";
@@ -494,6 +533,22 @@ public class ClienteCalculadoraFrame extends javax.swing.JFrame {
             textResultado.setText(y);
         }
     }//GEN-LAST:event_btn0ActionPerformed
+
+    private void btnRaizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRaizActionPerformed
+        // TODO add your handling code here:
+        operacion = "raiz";
+        textResultado.setText("√");
+        bandera = false;
+        btnPunto.setEnabled(true);
+    }//GEN-LAST:event_btnRaizActionPerformed
+
+    private void btnFactorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFactorialActionPerformed
+        // TODO add your handling code here:
+         operacion = "factorial";
+        textResultado.setText("!");
+        bandera = false;
+        btnPunto.setEnabled(true);
+    }//GEN-LAST:event_btnFactorialActionPerformed
 
     /**
      * @param args the command line arguments
@@ -542,10 +597,12 @@ public class ClienteCalculadoraFrame extends javax.swing.JFrame {
     private javax.swing.JButton btn8;
     private javax.swing.JButton btn9;
     private javax.swing.JButton btnDiv;
+    private javax.swing.JButton btnFactorial;
     private javax.swing.JButton btnIgual;
     private javax.swing.JButton btnMult;
     private javax.swing.JButton btnPot;
     private javax.swing.JButton btnPunto;
+    private javax.swing.JButton btnRaiz;
     private javax.swing.JButton btnResta;
     private javax.swing.JButton btnSum;
     private javax.swing.JTextField textResultado;

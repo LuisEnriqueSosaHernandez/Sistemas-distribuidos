@@ -23,5 +23,9 @@ public interface CalculadoraInterfaz extends Remote {
     public Double div(Double x, Double y) throws RemoteException;
 
     public Double pot(Double x, Double y) throws RemoteException;
+    
+    public Double raiz(Double x) throws RemoteException;
+    
+    public Double factorial(Double x) throws RemoteException;
 
 }
