@@ -1,0 +1,14 @@
+module Interfaces{
+interface Cliente{
+readonly attribute string nombre;
+void mostrarNotificacion(in string mensaje ,in Cliente cliente);
+};
+interface Servidor{
+readonly attribute string ruta;
+void escribirCliente(in Cliente cliente);
+void borrarCliente(in Cliente cliente);
+boolean subirImagen(in string nombre,in string ruta,in Cliente cliente);
+boolean eliminarImagen(in string ruta,in Cliente cliente);
+void notificar(in string mensaje,in Cliente cliente);
+};
+};
