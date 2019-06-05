@@ -525,7 +525,7 @@ public class Main extends javax.swing.JFrame {
         if (nombre.isEmpty()) {
             JOptionPane.showMessageDialog(btnEliminar, "Elige una imagen", "Notificación", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            if (servidor.eliminarImagen("/" + nombre, cliente)) {
+            if (servidor.eliminarImagen("/SistemasDistribuidos/" + nombre, cliente)) {
                 lblImagen.setIcon(null);
                 ruta = "";
                 nombre = "";

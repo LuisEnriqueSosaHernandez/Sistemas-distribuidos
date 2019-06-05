@@ -102,7 +102,7 @@ public class ServidorOBJ extends ServidorPOA {
         for (Cliente cc : clientes) {
             if (cc != null) {
                 try {
-                    cc.mostrarNotificacion(mensaje, cc);
+                    cc.mostrarNotificacion(mensaje, cliente);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
