@@ -30,7 +30,7 @@ public class ServidorOBJ extends ServidorPOA {
 
     private String ruta;
     private ORB orb;
-    private static final String ACCESS_TOKEN = "aK0Z1gEpabAAAAAAAAABYX-OdE9eaI_2NmHhegKTKEEW_16dfIriBzAAed_-G7I9";
+    private static final String ACCESS_TOKEN = "aK0Z1gEpabAAAAAAAAABh1FQmIJjVuBBq5hX86WFvk-9teLshcZtpw2H9EgOCaaq";
     DbxRequestConfig config;
     DbxClientV2 client;
     FullAccount account;
@@ -38,7 +38,7 @@ public class ServidorOBJ extends ServidorPOA {
 
     public ServidorOBJ() throws DbxException {
         ruta = "";
-        config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
+        config = DbxRequestConfig.newBuilder("dropbox/proyecto-distribuido").build();
         client = new DbxClientV2(config, ACCESS_TOKEN);
         account = client.users().getCurrentAccount();
     }
@@ -67,7 +67,7 @@ public class ServidorOBJ extends ServidorPOA {
     @Override
     public synchronized boolean subirImagen(String nombre, String ruta, Cliente cliente) {
         try (InputStream in = new FileInputStream(ruta)) {
-            FileMetadata metadata = client.files().uploadBuilder("/" + nombre)
+            FileMetadata metadata = client.files().uploadBuilder("/SistemasDistribuidos/" + nombre)
                     .uploadAndFinish(in);
             notificar(" ha subido la imagen: " + metadata.getName(), cliente);
             return true;
