@@ -4,9 +4,13 @@ import Interfaces.ClienteHelper;
 import Interfaces.Servidor;
 import Interfaces.ServidorHelper;
 import Rest.Jersey;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.Image;
+import java.awt.font.TextAttribute;
 import java.io.FileOutputStream;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -66,6 +70,11 @@ public class Main extends javax.swing.JFrame {
         btnEliminar.setEnabled(false);
         btnSubir.setEnabled(false);
         btnSalir.setEnabled(false);
+
+        Font font = lblNoCuenta.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        lblNoCuenta.setFont(font.deriveFont(attributes));
         this.setLocationRelativeTo(null);
         this.setTitle("Cliente");
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -94,15 +103,23 @@ public class Main extends javax.swing.JFrame {
         this.dispose();
         System.exit(0);
     }
-    public void cerrarSesion(){
+
+    public void cerrarSesion() {
         servidor.borrarCliente(cliente);
         btnBuscarImg.setEnabled(false);
-                        btnEliminar.setEnabled(false);
-                        btnSubir.setEnabled(false);
-                        btnSalir.setEnabled(false);
-                        btnEntrar.setEnabled(true);
-                        btnRegistrarse.setEnabled(true);
-                        cliente=null;
+        btnEliminar.setEnabled(false);
+        btnSubir.setEnabled(false);
+        btnSalir.setEnabled(false);
+        txtNumControlRegistro.setEnabled(true);
+        txtNombreRegistro.setEnabled(true);
+        txtPasswordRegistro.setEnabled(true);
+        txtNumControlEntrar.setEnabled(true);
+        txtPasswordEntrar.setEnabled(true);
+        lblNoCuenta.setEnabled(true);
+        btnEntrar.setEnabled(true);
+        btnRegistrarse.setEnabled(true);
+        Panel.setSelectedIndex(0);
+        cliente = null;
     }
 
     public boolean esValida(String password) {
@@ -161,6 +178,7 @@ public class Main extends javax.swing.JFrame {
         txtPasswordEntrar = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        lblNoCuenta = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         txtNumControlRegistro = new javax.swing.JTextField();
         txtNombreRegistro = new javax.swing.JTextField();
@@ -221,6 +239,21 @@ public class Main extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 204));
         jLabel4.setText("Contraseña");
 
+        lblNoCuenta.setFont(new java.awt.Font("Lucida Bright", 1, 12)); // NOI18N
+        lblNoCuenta.setForeground(new java.awt.Color(255, 255, 204));
+        lblNoCuenta.setText("Aún no tengo una cuenta");
+        lblNoCuenta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblNoCuentaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblNoCuentaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblNoCuentaMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -242,8 +275,13 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(219, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(297, 297, 297))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(297, 297, 297))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(lblNoCuenta)
+                        .addGap(313, 313, 313))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,7 +298,9 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(txtPasswordEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70)
                 .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblNoCuenta)
+                .addGap(31, 31, 31))
         );
 
         Panel.addTab("Iniciar sesión", jPanel3);
@@ -346,11 +386,11 @@ public class Main extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jLabel2)
                 .addGap(58, 58, 58)
-                .addComponent(txtNumControlRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                .addComponent(txtNumControlRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
                 .addGap(21, 21, 21)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNombreRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addComponent(txtNombreRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                 .addGap(9, 9, 9)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -362,7 +402,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(110, 110, 110)
                     .addComponent(jLabel7)
-                    .addContainerGap(330, Short.MAX_VALUE)))
+                    .addContainerGap(361, Short.MAX_VALUE)))
         );
 
         Panel.addTab("Registrarse", jPanel2);
@@ -503,7 +543,7 @@ public class Main extends javax.swing.JFrame {
             lblImagen.setIcon(imageIcon);
             ruta = chooser.getSelectedFile().getAbsolutePath();
             nombre = chooser.getSelectedFile().getName();
-            lblRuta.setText(ruta);
+            lblRuta.setText(nombre);
         }
     }//GEN-LAST:event_btnBuscarImgActionPerformed
 
@@ -516,7 +556,7 @@ public class Main extends javax.swing.JFrame {
                 lblImagen.setIcon(null);
                 ruta = "";
                 nombre = "";
-                lblRuta.setText(ruta);
+                lblRuta.setText(nombre);
             }
         }
     }//GEN-LAST:event_btnSubirActionPerformed
@@ -529,7 +569,7 @@ public class Main extends javax.swing.JFrame {
                 lblImagen.setIcon(null);
                 ruta = "";
                 nombre = "";
-                lblRuta.setText(ruta);
+                lblRuta.setText(nombre);
             }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -574,8 +614,15 @@ public class Main extends javax.swing.JFrame {
                         btnEliminar.setEnabled(true);
                         btnSubir.setEnabled(true);
                         btnSalir.setEnabled(true);
+                        txtNumControlRegistro.setEnabled(false);
+                        txtNombreRegistro.setEnabled(false);
+                        txtPasswordRegistro.setEnabled(false);
+                        txtNumControlEntrar.setEnabled(false);
+                        txtPasswordEntrar.setEnabled(false);
+                        lblNoCuenta.setEnabled(false);
                         btnEntrar.setEnabled(false);
                         btnRegistrarse.setEnabled(false);
+                        Panel.setSelectedIndex(2);
                     } else {
                         JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "Notificación", JOptionPane.INFORMATION_MESSAGE);
                     }
@@ -611,6 +658,7 @@ public class Main extends javax.swing.JFrame {
                             txtNumControlRegistro.setText("");
                             txtNombreRegistro.setText("");
                             txtPasswordRegistro.setText("");
+                            Panel.setSelectedIndex(1);
                             alumno = null;
                         }
                     } else {
@@ -630,6 +678,22 @@ public class Main extends javax.swing.JFrame {
     private void txtNumControlRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumControlRegistroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNumControlRegistroActionPerformed
+
+    private void lblNoCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNoCuentaMouseClicked
+        Panel.setSelectedIndex(1);
+    }//GEN-LAST:event_lblNoCuentaMouseClicked
+
+    private void lblNoCuentaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNoCuentaMouseEntered
+        // TODO add your handling code here:
+        lblNoCuenta.setText("Haz click para registrarte");
+        lblNoCuenta.setForeground(new Color(0,0,0));
+    }//GEN-LAST:event_lblNoCuentaMouseEntered
+
+    private void lblNoCuentaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNoCuentaMouseExited
+        // TODO add your handling code here:
+         lblNoCuenta.setText("Aún no tengo una cuenta");
+        lblNoCuenta.setForeground(new Color(255,255,204));
+    }//GEN-LAST:event_lblNoCuentaMouseExited
 
     /**
      * @param args the command line arguments
@@ -692,6 +756,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblImagen;
+    private javax.swing.JLabel lblNoCuenta;
     private javax.swing.JLabel lblRuta;
     private javax.swing.JTextField txtNombreRegistro;
     private javax.swing.JTextArea txtNotificaciones;
