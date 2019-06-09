@@ -1,0 +1,14 @@
+module Corba{
+interface Usuario{
+readonly attribute string usuario;
+void notificacion(in string mostrar ,in Usuario usuario);
+};
+interface Servidor{
+readonly attribute string path;
+void notificar(in string mostrar,in Usuario usuario);
+void registrarUsuario(in Usuario usuario);
+void eliminarUsuario(in Usuario usuario);
+boolean cargarImagen(in string nombreImagen,in string path,in Usuario usuario);
+boolean borrarImagen(in string path,in Usuario usuario);
+};
+};
