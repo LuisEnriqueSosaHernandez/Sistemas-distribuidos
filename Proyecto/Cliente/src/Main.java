@@ -9,7 +9,10 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.font.TextAttribute;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.Base64;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,6 +50,7 @@ public class Main extends javax.swing.JFrame {
      */
     String ruta;
     String nombre;
+    String extension;
     ORB orb;
     org.omg.CORBA.Object objRef;
     NamingContextExt ncRef;
@@ -60,6 +64,8 @@ public class Main extends javax.swing.JFrame {
     Cliente cliente;
     Jersey jersey;
     alumnos alumno;
+    File file;
+    String imagenCodificada;
 
     public Main(String args[]) {
         initComponents();
@@ -136,6 +142,14 @@ public class Main extends javax.swing.JFrame {
         } else {
             return false;
         }
+    }
+    
+     //CODIFICA LA IMAGEN A STRING
+    private String codificaImagen(File file) throws Exception{
+            FileInputStream fileInputStreamReader = new FileInputStream(file);
+            byte[] bytes = new byte[(int)file.length()];
+            fileInputStreamReader.read(bytes);
+            return new String(Base64.getEncoder().encode(bytes), "UTF-8");
     }
 
     public void crearObjeto(String nombre) throws InvalidName, AdapterInactive, ServantNotActive, WrongPolicy, org.omg.CosNaming.NamingContextPackage.InvalidName, org.omg.CosNaming.NamingContextPackage.InvalidName, NotFound, CannotProceed {
@@ -543,6 +557,7 @@ public class Main extends javax.swing.JFrame {
             lblImagen.setIcon(imageIcon);
             ruta = chooser.getSelectedFile().getAbsolutePath();
             nombre = chooser.getSelectedFile().getName();
+            extension= nombre.substring(nombre.lastIndexOf("."));
             lblRuta.setText(nombre);
         }
     }//GEN-LAST:event_btnBuscarImgActionPerformed
@@ -552,10 +567,19 @@ public class Main extends javax.swing.JFrame {
         if (ruta.isEmpty() || nombre.isEmpty()) {
             JOptionPane.showMessageDialog(btnSubir, "Elige una imagen", "Notificación", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            if (servidor.subirImagen(nombre, ruta, cliente)) {
+            file=new File(ruta);
+            try {
+               imagenCodificada=codificaImagen(file);
+            } catch (Exception ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (servidor.subirImagen(imagenCodificada,nombre, extension, cliente)) {
                 lblImagen.setIcon(null);
                 ruta = "";
                 nombre = "";
+                extension="";
+                imagenCodificada="";
+                file=null;
                 lblRuta.setText(nombre);
             }
         }
@@ -658,7 +682,7 @@ public class Main extends javax.swing.JFrame {
                             txtNumControlRegistro.setText("");
                             txtNombreRegistro.setText("");
                             txtPasswordRegistro.setText("");
-                            Panel.setSelectedIndex(1);
+                            Panel.setSelectedIndex(0);
                             alumno = null;
                         }
                     } else {

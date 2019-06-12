@@ -10,12 +10,17 @@ import com.dropbox.core.v2.DbxClientV2;
 import com.dropbox.core.v2.files.DeleteResult;
 import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.users.FullAccount;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import sun.misc.BASE64Decoder;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -65,7 +70,31 @@ public class ServidorOBJ extends ServidorPOA {
     }
 
     @Override
-    public synchronized boolean subirImagen(String nombre, String ruta, Cliente cliente) {
+    public synchronized boolean subirImagen(String imagen,String nombre,String extension, Cliente cliente) {
+        ruta="imagenes/";
+             BufferedImage image = null;
+        byte[] imageByte = null;
+
+        BASE64Decoder decoder = new BASE64Decoder();
+        try {
+            imageByte = decoder.decodeBuffer(imagen);
+        } catch (IOException ex) {
+            Logger.getLogger(ServidorOBJ.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(imageByte)) {
+            image = ImageIO.read(bis);
+        } catch (IOException ex) {
+            Logger.getLogger(ServidorOBJ.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           ruta+=nombre;
+        // Se guarda la imagen
+        File outputfile = new File(ruta);
+        
+        try {
+            ImageIO.write(image, extension.substring(1), outputfile);
+        } catch (IOException ex) {
+            Logger.getLogger(ServidorOBJ.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try (InputStream in = new FileInputStream(ruta)) {
             FileMetadata metadata = client.files().uploadBuilder("/SistemasDistribuidos/" + nombre)
                     .uploadAndFinish(in);
