@@ -99,6 +99,7 @@ public class ServidorOBJ extends ServidorPOA {
             FileMetadata metadata = client.files().uploadBuilder("/SistemasDistribuidos/" + nombre)
                     .uploadAndFinish(in);
             notificar(" ha subido la imagen: " + metadata.getName(), cliente);
+            
             return true;
         } catch (FileNotFoundException ex) {
             notificar(" ha cometido un error", cliente);
